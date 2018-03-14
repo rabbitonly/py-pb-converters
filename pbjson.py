@@ -66,7 +66,8 @@ def dict2pb(cls, adict, strict=False):
                     item = getattr(obj, field.name).add()
                     item.CopyFrom(dict2pb(msg_type._concrete_class, sub_dict))
             else:
-                map(getattr(obj, field.name).append, adict[field.name])
+                # map(getattr(obj, field.name).append, adict[field.name])
+                getattr(obj, field.name).extends(adict[field.name])
         else:
             if field.type == FD.TYPE_MESSAGE:
                 value = dict2pb(msg_type._concrete_class, adict[field.name])
